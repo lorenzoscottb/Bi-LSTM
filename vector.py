@@ -49,7 +49,7 @@ def clean_sentences(sent_list):
                 sents[s][tk] = '#cardinal'
 
     # removing stopwords and punctuation
-     print('removing stop words and punctuation')
+    print('removing stop words and punctuation')
     clean_sents = list(np.zeros(len(sents)))
     for i in range(len(sents)):
         clean_sents[i] = [word.lower() for word in sents[i] if word.lower()
@@ -60,7 +60,7 @@ def clean_sentences(sent_list):
     tag_sent = [nltk.pos_tag(sent) for sent in clean_sents]
 
     # lemmatizing (still needs to use the pos tag)
-     print('lemmatizing')
+    print('lemmatizing')
     final_sent = list(np.zeros(len(tag_sent)))
     for s in range(len(tag_sent)):
         final_sent[s] = [lemmatizer(touple) for touple in tag_sent[s]]
