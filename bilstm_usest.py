@@ -1,18 +1,9 @@
 
-import os
-import re
-import nltk
+
 import random
 import logging
-import numpy as np
-import string
-from glob import glob
 from numpy import array
 from numpy import cumsum
-from nltk import WordNetLemmatizer # better morphit
-from nltk.corpus import wordnet
-from gensim.models import Word2Vec
-from nltk.corpus import stopwords
 from keras.models import Sequential
 from keras.layers import LSTM
 from keras.layers import Dense
@@ -21,7 +12,6 @@ from keras.utils.np_utils import to_categorical
 from sklearn.preprocessing import StandardScaler
 from pandas_ml import ConfusionMatrix
 import matplotlib.pyplot as plt
-
 
 
 # The BiLSTM
@@ -58,7 +48,6 @@ for i in range(ts):
 X = array(x).reshape(ts, length, 400)
 Y = array(y).reshape(ts, 1)
 model.fit(X, Y, epochs=50, batch_size=33, verbose=2)
-
 
 # Evaluation
 tt = data_length-ts
