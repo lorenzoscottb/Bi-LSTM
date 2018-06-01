@@ -20,8 +20,13 @@ en_stop.append("'d")
 it_stop = stopwords.words('italian')
 punctuations = list(string.punctuation)
 
+
 # Functions 
 def clean_sentences(sent_list):
+
+    """""""""
+    take a list of str and oprates statard corpus cleaning
+    """""
 
     def lemmatizer(toupla):
 
@@ -39,25 +44,30 @@ def clean_sentences(sent_list):
             return lm.lemmatize(toupla[0])
 
     # word tokenization
-    sents = [nltk.word_tokenize(sent) for sent in sent_list]
+    print('tokenizing sentences')
+    sn = list(np.zeros(len(sent_list)))
+    for sen in range(len(sn)):
+        sn[sen] = nltk.word_tokenize(sent_list[sen])
 
     # remove digits
     print('removing digits')
-    for s in range(len(sents)):
-        for tk in range(len(sents[s])):
-            if sents[s][tk].isdigit():
-                sents[s][tk] = '#cardinal'
+    for s in range(len(sn)):
+        for tk in range(len(sn[s])):
+            if sn[s][tk].isdigit():
+                sn[s][tk] = '#cardinal'
 
     # removing stopwords and punctuation
     print('removing stop words and punctuation')
-    clean_sents = list(np.zeros(len(sents)))
-    for i in range(len(sents)):
-        clean_sents[i] = [word.lower() for word in sents[i] if word.lower()
+    clean_sents = list(np.zeros(len(sn)))
+    for i in range(len(sn)):
+        clean_sents[i] = [word.lower() for word in sn[i] if word.lower()
                           not in en_stop and word.lower() not in punctuations]
 
     # pos tagging
     print('pos tagging')
-    tag_sent = [nltk.pos_tag(sent) for sent in clean_sents]
+    tag_sent = list(np.zeros(len(clean_sents)))
+    for i in range(len(clean_sents)):
+        tag_sent[i] = nltk.pos_tag(clean_sents[i])
 
     # lemmatizing (still needs to use the pos tag)
     print('lemmatizing')
