@@ -1,5 +1,26 @@
 
-
+import os
+import re
+import nltk
+import random
+import logging
+import numpy as np
+import string
+from glob import glob
+from numpy import array
+from numpy import cumsum
+from nltk import WordNetLemmatizer # better morphit
+from nltk.corpus import wordnet
+from gensim.models import Word2Vec
+from nltk.corpus import stopwords
+from keras.models import Sequential
+from keras.layers import LSTM
+from keras.layers import Dense
+from keras.layers import Bidirectional
+from keras.utils.np_utils import to_categorical
+from sklearn.preprocessing import StandardScaler
+from pandas_ml import ConfusionMatrix
+import matplotlib.pyplot as plt
 
 
 
@@ -47,10 +68,10 @@ def clean_sentences(sent_list):
     return final_sent
 
 
-usps = '/Users/lorenzoscottb/Documents/corpora/usps'
-ct = '/Users/lorenzoscottb/Documents/corpora/clintonvstrump'
+# input the directory for corpora
+print('set directory for U.S. Speaches Corpora)
+folder = input() 
 
-folder = usps
 # writing pres_X_year_X_sent corpus N.B.: not cleaned
 speeches = []
 for file in glob(folder + os.sep + '**', recursive=True):
@@ -85,10 +106,10 @@ for file in glob(folder + os.sep + '**', recursive=True):
     f.close()
 
 datasetType = ['name', 'year']  # 1 = year, 0 = name
-cupsp = '/Users/lorenzoscottb/Documents/corpora/usps/Corpus'
-cct = '/Users/lorenzoscottb/Documents/corpora/clintonvstrump/Corpus1'
 
-corpus = cupsp
+# directory for the splitted corpus
+print('set directory for the splitted corupus)
+corpus = input()
 
 # test on  name
 datasetType = datasetType[0]
@@ -209,10 +230,8 @@ for i in range(tt):
           str(y[i])+'')
 prediction = list(yhat)
 print('Overall accuracy: '+str(int((correct*100)/tt)))
-# resetting labels
 
-
-# plotting confusion matrix
+# plotting model's confusion matrix
 cf = ConfusionMatrix(y, prediction)
 cf.plot()
 plt.show()
