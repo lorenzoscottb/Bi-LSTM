@@ -90,8 +90,7 @@ print('the corpus is done', '\nit contains', len(documents),
       'documents and', len(pg), 'sentences')
 
 pirnt('Cleaning the collected Corpus')
-sents = [sent[2] for sent in pg if len(sent) == 3]
-final_corpus = clean_sentences(sents)
+final_corpus = clean_sentences(pg)
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
                     level=logging.INFO)
