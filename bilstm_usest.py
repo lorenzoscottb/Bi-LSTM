@@ -26,6 +26,7 @@ import matplotlib.pyplot as plt
 
 # Stop words
 en_stop = stopwords.words('english')
+en_stop.append("'d")
 it_stop = stopwords.words('italian')
 punctuations = list(string.punctuation)
 
@@ -37,13 +38,27 @@ def max_len(list_of_sent):
 
     return m, ln.count(m)
 
-
 def clean_sentences(sent_list):
+
+    def lemmatizer(toupla):
+
+        lm = WordNetLemmatizer()
+
+        if toupla[1].startswith('J'):
+            return lm.lemmatize((toupla[0]), wordnet.ADJ)
+        elif toupla[1].startswith('V'):
+            return lm.lemmatize((toupla[0]), wordnet.VERB)
+        elif toupla[1].startswith('N'):
+            return lm.lemmatize((toupla[0]), wordnet.NOUN)
+        elif toupla[1].startswith('R'):
+            return lm.lemmatize((toupla[0]), wordnet.ADV)
+        else:
+            return lm.lemmatize(toupla[0])
 
     # word tokenization
     sents = [nltk.word_tokenize(sent) for sent in sent_list]
 
-    # remove digits
+    # rename digits
     for s in range(len(sents)):
         for tk in range(len(sents[s])):
             if sents[s][tk].isdigit():
@@ -52,18 +67,16 @@ def clean_sentences(sent_list):
     # removing stopwords and punctuation
     clean_sents = list(np.zeros(len(sents)))
     for i in range(len(sents)):
-        clean_sents[i] = [word for word in sents[i] if word.lower()
+        clean_sents[i] = [word.lower() for word in sents[i] if word.lower()
                           not in en_stop and word.lower() not in punctuations]
 
     # pos tagging
     tag_sent = [nltk.pos_tag(sent) for sent in clean_sents]
 
     # lemmatizing (still needs to use the pos tag)
-    lemmatizer = WordNetLemmatizer()
     final_sent = list(np.zeros(len(tag_sent)))
     for s in range(len(tag_sent)):
-        final_sent[s] = [lemmatizer.lemmatize(touple[0]) for
-                         touple in tag_sent[s]]
+        final_sent[s] = [lemmatizer(touple) for touple in tag_sent[s]]
 
     return final_sent
 
