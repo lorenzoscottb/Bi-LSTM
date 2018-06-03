@@ -24,7 +24,7 @@ def Bi_LSTM(units, features, time_steps, prn=False):
     model.add(Bidirectional(LSTM(units, return_sequences=False),
                             input_shape=(time_steps, features),
                             merge_mode='concat'))
-#    model.add(Dense(int((units/2)), activation='relu'))
+    model.add(Dense(int((units/2)), activation='relu'))
     model.add(Dense(43, activation='softmax'))
     model.compile(loss='sparse_categorical_crossentropy',
                   optimizer='adam', metrics=['acc'])
@@ -36,7 +36,7 @@ def Bi_LSTM(units, features, time_steps, prn=False):
 # Training
 model = Bi_LSTM(512, 400, length, prn=True)
 # train model on given % of stimuli
-ts = int((data_length*65)/100)
+ts = int((data_length*65)/100)  
 x = list(np.zeros(ts))
 y = list(np.zeros(ts))
 for i in range(ts):
