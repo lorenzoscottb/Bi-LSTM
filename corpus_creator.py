@@ -163,21 +163,11 @@ pres2num = [d[pres] for pres in datiOutput]
 pres2categorical = to_categorical(pres2num, num_classes=43)
 
 
-# Creating the matched corpus for train and test
-# problem: there are 35 classes, solution: searche for len od sent
-# that allow to have example from all pres
-length, data_length = max_len(clean_sents)
+# Creating the corpus for the network
 network_corpus = []
 for i in range(len(clean_sents)):
-    if len(clean_sents[i]) == length:
-        vectors = [languageModel.wv[word] for word in clean_sents[i]]
-        network_corpus.append((pres2num[i], vectors))
-
-# # normalize vectors
-# scaler = StandardScaler()
-# normalize_vec = scaler.transform(vectors)
-# for i in range(data_length):
-#     vec = []
-#         for v in range(i, i+11):
-#            vec.append()
-#     network_corpus.append((pres2num[i], vectors[i]))
+    csent = clean_sents[i]
+    if len(csent) == 0:
+        continue
+    vectors = [languageModel.wv[word] for word in csent]
+    network_corpus.append((pres2num[i], vectors))
