@@ -28,6 +28,19 @@ it_stop = stopwords.words('italian')
 punctuations = list(string.punctuation)
 
 # Functions
+
+def hgs_len(list_of_sent):
+
+    """""""""
+    returns the longest sent
+    """
+
+    ln = [len(s) for s in list_of_sent]
+    m = max(set(ln))
+
+    return m
+
+
 def max_len(list_of_sent):
 
     ln = [len(s) for s in list_of_sent]
