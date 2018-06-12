@@ -1,5 +1,6 @@
 """
 Uses the U.S. preidential speeches corpus to create a Presidens x Year x Sentece Corpus (already downloadable in repository)
+and the Pres(2num) X vector (sentences) corpus
 The code is an extention of the work from Patrizio Bellan (patriziobellan86)
 
 """
