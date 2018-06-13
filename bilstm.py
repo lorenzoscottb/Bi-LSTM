@@ -75,6 +75,7 @@ pr = [int(n) for n in nltk.word_tokenize(str(out)) if n.isdigit()]
 # Plotting confusion matrix
 cf = ConfusionMatrix(exp, pr)
 cf.plot()
+plt.colorbar()
 plt.show()
 
 
