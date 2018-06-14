@@ -71,14 +71,13 @@ for i in range(tt):
           str(y))
 print('Overall accuracy: '+str(int((correct*100)/tt))+'%')
 
-pr = [int(n) for n in nltk.word_tokenize(str(out)) if n.isdigit()]
-# Plotting confusion matrix
-cf = ConfusionMatrix(exp, pr)
-cf.plot()
-plt.colorbar()
+# plotting the confusion matrix
+# reconverting numbers to presidnts names
+predicted = [list(d.keys())[int(p)] for p in nltk.word_tokenize(str(out)) if p.isdigit()]
+actual = [list(d.keys())[a] for a in exp]
+cf = ConfusionMatrix(actual, predicted)
+cf.plot(normalized=True)
 plt.show()
-
-
 
 
 
