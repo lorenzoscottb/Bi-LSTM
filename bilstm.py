@@ -74,7 +74,7 @@ print('Overall accuracy: '+str(int((correct*100)/tt))+'%')
 predicted = [list(d.keys())[int(p)] for p in nltk.word_tokenize(str(out)) if p.isdigit()]
 actual = [list(d.keys())[a] for a in exp]
 cf = ConfusionMatrix(actual, predicted)
-cf.plot(normalized=True)
+cf.plot(normalized=True, backend='seaborn', cmap="Blues")
 plt.show()
 
 
